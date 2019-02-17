@@ -1,0 +1,39 @@
+<!-- This app doesn't follow a11y best practices, and the JS file is incomplete. 
+    Complete the getLyrics, displayResults, and watchSubmit functions. When you're done, 
+    this app should allow a user to search for an artist and song title (both should be required), 
+    and display the song lyrics. You should make requests to this API: https://lyricsovh.docs.apiary.io/# . 
+    Make any necessary adjustments to make this app accessible. -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Generate Song Lyrics</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <main role="main" class="container">
+        <h1>Song Lyrics</h1>
+        <div role="search">
+            <form action="#" class="js-search-form">
+                <label for="artist">Artist:</label>
+                <input type="text" id="artist" class="js-query-artist" placeholder="Queen" value='Drake'>
+                <label for="song-title">Song title:</label>
+                <input type="text" id="song-title" class="js-query-title" placeholder="Under Pressure"
+                    value="One Dance">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        <div class="hidden" id="results">
+
+        </div>
+    </main>
+    <script src="index.js"></script>
+</body>
+
+</html>
