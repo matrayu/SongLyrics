@@ -1,4 +1,7 @@
+/*jshint globalstrict: true*/
+
 'use strict';
+
 
 const api = 'https://api.lyrics.ovh/v1';
 
@@ -10,7 +13,7 @@ function getLyrics(artist, title) {
         return response.json();
     })
     .then((data) => {
-        console.log(data)
+        console.log(data);
         if (data.lyrics === undefined || data.lyrics === '') {
             throw('No lyrics!');
         }
@@ -22,12 +25,12 @@ function getLyrics(artist, title) {
         console.error(err);
         $('#results').toggle(true);
         return displayResults(`There was a problem processing this request: ${err}`);
-    })
+    });
 }
 
 function displayResults(responseJson) {
     console.log('displayResults ran');
-    const lyrics = responseJson.split('\n')
+    const lyrics = responseJson.split('\n');
     //console.log(lyrics[0])
     lyrics.forEach((element) => {
         $('#results').toggle(true);
@@ -39,7 +42,7 @@ function watchForm() {
     console.log('watchForm ran');
     $('.js-search-form').submit(() => {
         $('#results').toggle(false);
-        $('#results').text('')
+        $('#results').text('');
         const artist = $('.js-query-artist').val();
         const title = $('.js-query-title').val();
         getLyrics(artist, title);
