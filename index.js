@@ -2,38 +2,41 @@
 
 'use strict';
 
-
-const api = 'https://api.lyrics.ovh/v1';
-
-
 function getLyrics(artist, title) {
     console.log('getLyrics ran');
-    fetch(`${api}/${artist}/${title}`)
-    .then((response) => {
-        return response.json();
-    })
-    .then((data) => {
-        console.log(data);
-        if (data.lyrics === undefined || data.lyrics === '') {
-            throw('No lyrics!');
-        }
-        else {
+
+    const url = encodeURI(`https://api.lyrics.ovh/v1/${artist}/${title}`);
+
+    fetch(url)
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            }
+            if (response.statusText === 'Not Found') {
+                throw (`<b>Couldn't find any lyrics for ${title} by ${artist}.</b>`);
+            }
+            else {
+                throw (response.statusText);
+            }
+        })
+        .then((data) => {
             return displayResults(data.lyrics);
-        }
-    })
-    .catch((err) => {
-        console.error(err);
-        $('#results').toggle(true);
-        return displayResults(`There was a problem processing this request: ${err}`);
-    });
+        })
+        .catch((err) => {
+            console.error(err);
+            $('#results').empty();
+            $('#results').removeClass('hidden');
+            $('#results').html(`There was a problem processing this request: <b>${err}</b>`)
+            //return displayResults(`There was a problem processing this request: ${err}`);
+        });
 }
 
 function displayResults(responseJson) {
     console.log('displayResults ran');
+    $('#results').empty();
+    $('#results').removeClass('hidden');
     const lyrics = responseJson.split('\n');
-    //console.log(lyrics[0])
     lyrics.forEach((element) => {
-        $('#results').toggle(true);
         $('#results').append(`${element}</br>`);
     });
 }
@@ -41,12 +44,10 @@ function displayResults(responseJson) {
 function watchForm() {
     console.log('watchForm ran');
     $('.js-search-form').submit(() => {
-        $('#results').toggle(false);
-        $('#results').text('');
+        event.preventDefault();
         const artist = $('.js-query-artist').val();
         const title = $('.js-query-title').val();
         getLyrics(artist, title);
-        event.preventDefault();
     });
 }
 

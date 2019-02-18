@@ -19,19 +19,25 @@
 <body>
     <main class="container">
         <h1>Song Lyrics</h1>
+        
         <div role="search">
             <form action="#" class="js-search-form">
-                <label for="artist">Artist:</label>
-                <input type="text" id="artist" class="js-query-artist" placeholder="Queen" value='Drake'>
-                <label for="song-title">Song title:</label>
-                <input type="text" id="song-title" class="js-query-title" placeholder="Under Pressure"
-                    value="One Dance">
-                <button type="submit">Search</button>
+                <fieldset name="lyric-search">
+                    <legend>Search for lyrics</legend>
+                    <label for="artist">Artist:</label>
+                    <input type="text" id="artist" class="js-query-artist" placeholder="Queen" value='Drake' required>
+                    <label for="song-title">Song title:</label>
+                    <input type="text" id="song-title" class="js-query-title" placeholder="Under Pressure"
+                        value="One Dance" required>
+                    <button type="submit">Search</button>
+                </fieldset>
             </form>
         </div>
-        <div class="hidden" id="results">
 
-        </div>
+        <section class="hidden" id="results">
+
+        </section>
+        
     </main>
     <script src="index.js"></script>
 </body>
